@@ -19,7 +19,7 @@ app.add_middleware(
 init_db()
 
 # --- CONFIGURATION ---
-GEMINI_API_KEY = "ADD your own api key"  # <--- RE-PASTE YOUR KEY!
+GEMINI_API_KEY = "AIzaSyC3OYtHwq5_B8aYvs3xhstpG3CPzmZbtkQ"  # <--- RE-PASTE YOUR KEY!
 genai.configure(api_key=GEMINI_API_KEY)
 
 # --- MEMORY ---

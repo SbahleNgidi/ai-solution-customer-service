@@ -61,7 +61,7 @@ function App() {
   }
 
   return (
-    <div className="chat-container">
+    <div className="chat-container ">
       <h1>🍗 KFC AI Service</h1>
       
       <div className="chat-box">
