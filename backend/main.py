@@ -2,6 +2,8 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 import google.generativeai as genai
 from PIL import Image
+import os
+from dotenv import load_dotenv
 import io
 import re
 from database import init_db, save_complaint
@@ -19,7 +21,15 @@ app.add_middleware(
 init_db()
 
 # --- CONFIGURATION ---
-GEMINI_API_KEY = "AIzaSyC3OYtHwq5_B8aYvs3xhstpG3CPzmZbtkQ"  # <--- RE-PASTE YOUR KEY!
+# Load environment variables from the .env file
+load_dotenv()
+
+# Get the key securely
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise ValueError("No API Key found! Make sure .env file exists.")
+
 genai.configure(api_key=GEMINI_API_KEY)
 
 # --- MEMORY ---
