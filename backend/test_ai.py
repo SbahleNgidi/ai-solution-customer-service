@@ -1,7 +1,7 @@
 import google.generativeai as genai
 
 # PASTE YOUR REAL KEY HERE
-GEMINI_API_KEY = "AIzaSyB7D_wcicDZDjbwyzh3e_oXggPN4o-R_EA" 
+GEMINI_API_KEY = "Add your own api key" 
 
 try:
     print("1. Configuring API...")
