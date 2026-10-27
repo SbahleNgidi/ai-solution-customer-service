@@ -1,13 +1,18 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 import google.generativeai as genai
+from mangum import Mangum
 from PIL import Image
 import os
 from dotenv import load_dotenv
 import io
 import re
-from database import init_db, save_complaint
-
+from database import (
+    init_db,
+    save_complaint,
+    get_history,
+    save_history
+)
 app = FastAPI()
 
 app.add_middleware(
@@ -128,3 +133,6 @@ async def chat_endpoint(
     except Exception as e:
         print("Error:", e)
         return {"reply": "System Error: Please try again."}
+
+
+handler = Mangum(app)
