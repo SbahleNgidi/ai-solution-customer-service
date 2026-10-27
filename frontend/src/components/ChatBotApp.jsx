@@ -48,10 +48,12 @@ function App() {
         formData.append("image", selectedImage);
       }
 
-      // 3. Send to Backend
-      const response = await axios.post('http://127.0.0.1:8000/api/chat', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      
+      // 3. Send to AWS Lambda Backend
+      const API_URL = import.meta.env.VITE_API_URL;
+
+      const response = await axios.post(`${API_URL}/api/chat`, formData);
+
 
       setChatHistory([...newHistory, { sender: 'bot', text: response.data.reply }])
       setMessage('')
