@@ -101,8 +101,24 @@ async def chat_endpoint(
             content_to_send.append(f"HISTORY:\n{history}\n\nUSER:\n{message}")
 
         # 3. Get AI Response
-        response = model.generate_content(content_to_send)
-        ai_reply = response.text
+print("DEBUG: About to call Gemini", flush=True)
+
+try:
+    response = model.generate_content(
+        content_to_send,
+        request_options={"timeout": 20}
+    )
+    ai_reply = response.text
+    print("DEBUG: Gemini response received", flush=True)
+
+except Exception as e:
+    print(
+        f"ERROR: Gemini failed: {type(e).__name__}: {e}",
+        flush=True
+    )
+    return {
+        "reply": "⚠️ The AI service is temporarily unavailable. Please try again."
+    }
         
         # 4. Check for Escalation or Refund Triggers
         escalated = False
@@ -126,7 +142,17 @@ async def chat_endpoint(
         updated_history = f"{history}\nUser: {message}\nAI: {ai_reply}"
         chat_sessions[user_id] = updated_history[-1000:]
         
-        save_complaint(user_id, user_input_log, ai_reply, is_escalated=escalated, refund_issued=refund)
+        print("DEBUG: Saving complaint to DynamoDB", flush=True)
+
+        save_complaint(
+        user_id,
+        user_input_log,
+        ai_reply,
+        is_escalated=escalated,
+        refund_issued=refund
+        )
+
+        print("DEBUG: Complaint saved successfully", flush=True)
         
         return {"reply": ai_reply}
         
