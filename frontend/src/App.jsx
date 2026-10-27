@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/Home";
-import Chatbot from "./components/ChatBotApp.jsx"; // <-- your existing chatbot component
+import Chatbot from "./components/ChatBotApp.jsx";
 
-const API_URL = "https://ai-solution-customer-service-1.onrender.com/api/chat";
 function App() {
   return (
     <BrowserRouter>
